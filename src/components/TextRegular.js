@@ -4,7 +4,7 @@ export default function TextRegular (props) {
   const { textStyle, ...inputProps } = props
 
   return (
-          <Text style={[styles.text, textStyle]} {...inputProps}>
+          <Text style={[styles.text, textStyle, {fontSize : props.size}]} {...inputProps}>
             {props.children}
           </Text>
   )

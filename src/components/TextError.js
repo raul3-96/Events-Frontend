@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Montserrat_400Regular',
     fontSize: 16,
-    color: GlobalStyles.brandPrimary,
+    color: GlobalStyles.brandError,
     textAlign: 'center'
   }
 })

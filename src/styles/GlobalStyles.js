@@ -1,11 +1,12 @@
-const brandPrimary = '#be0f2e' // Granate US. rgba(190,15,46,255)
+const brandPrimary = '#7ED7DB' 
 const brandPrimaryDisabled = `${brandPrimary}a8`
-const brandPrimaryTap = '#AD0E29' //  Granate US más oscuro
+const brandPrimaryTap = '#31A8AE' 
 const brandSecondary = '#feca1b' // Amarillo US. rgba(254,202,27,255)
 const brandSecondaryTap = '#EAB607' // amarillo US más oscuro
 const brandSuccess = '#95be05' // verde US
 const brandSuccessDisabled = `${brandSuccess}a8`
 const brandSuccessTap = '#95be05' // verde US
+const brandError = '#F20000' // verde US
 const brandBackground = 'rgb(242, 242, 242)' // gris claro
 const brandBlue = '#648a9f'
 const brandBlueTap = '#648a9f'
@@ -28,4 +29,29 @@ const navigationTheme = {
   }
 }
 
-export { navigationTheme, brandPrimary, brandPrimaryTap, brandSecondary, brandSecondaryTap, brandSuccess, brandSuccessDisabled, brandSuccessTap, brandBackground, brandBlue, brandBlueTap, brandGreen, brandGreenTap, flashStyle, flashTextStyle, brandPrimaryDisabled, brandGreen2, brandGreenTap2 }
+const justifyCenter ={
+  justifyContent: 'center',
+}
+
+const alignCenter = {
+  alignItems: 'center'
+}
+
+const itemCenter={
+  justifyContent: 'center',
+  alignItems: 'center'
+}
+
+const containerCenter = {
+  flex: 1,
+  justifyContent: 'center',
+  width:'100%',
+  maxWidth:1250,
+  display:'flex',
+  padding:15
+}
+
+export { navigationTheme, brandPrimary, brandPrimaryTap, brandSecondary, brandSecondaryTap, brandSuccess, brandError,
+  brandSuccessDisabled, brandSuccessTap, brandBackground, brandBlue, brandBlueTap, brandGreen, brandGreenTap, 
+  flashStyle, flashTextStyle, brandPrimaryDisabled, brandGreen2, brandGreenTap2,justifyCenter,alignCenter,
+  containerCenter, itemCenter }

@@ -4,7 +4,7 @@ export default function TextSemiBold (props) {
   const { textStyle, ...inputProps } = props
 
   return (
-          <Text style={[styles.text, textStyle]} {...inputProps}>
+          <Text style={[styles.text, textStyle, {fontSize : props.size}]} {...inputProps}>
             {props.children}
           </Text>
   )
@@ -12,7 +12,6 @@ export default function TextSemiBold (props) {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 12,
     fontFamily: 'Montserrat_600SemiBold'
   }
 })

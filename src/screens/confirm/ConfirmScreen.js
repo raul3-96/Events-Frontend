@@ -431,7 +431,7 @@ export default function ConfirmScreen ({ navigation, route }) {
         <Header navigation={navigation} activeTitle="Confirmar asistencia"></Header>
       </View>
       <View style={styles.container}>
-        <View style={styles.containerCentered}>
+        <View style={GlobalStyles.containerCenter}>
         {invitation.status == 'pending' ? 
           <><Text style={{fontWeight:'bold', fontSize:24, textAlign:'center'}}>¡Confirma tu asistencia!</Text>
           <Text style={{fontWeight:'bold', fontSize:18, textAlign:'center'}}>Podéis utilizar este formulario para confirmar vuestra asistencia a la boda. Si vais a confirmar para varios invitados por favor indicad los nombres de todos los que asistirán</Text></>
@@ -542,13 +542,6 @@ const styles = StyleSheet.create({
     alignItems: "center", 
     justifyContent: "center",
     marginTop:55
-  },
-  containerCentered: {
-    flex: 1,
-    width:'100%',
-    maxWidth:1250,
-    display:'flex',
-    padding:15
   },
   contentRow: {
     width:windowWidth >= 500 ? '30%' : '28%', 

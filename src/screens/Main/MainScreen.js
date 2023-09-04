@@ -91,57 +91,57 @@ export default function MainScreen ({ navigation, route }) {
     <View style={{zIndex:9999}}>
       <Header navigation={navigation} activeTitle="Inicio"></Header>
     </View>
-    <View style={[styles.justifyCenter, styles.alignCenter, {flex: 1}]}>
+    <View style={[GlobalStyles.itemCenter, {flex: 1}]}>
     <ImageBackground
         source={require('../../../assets/mainBackground.jpeg')}
         style={styles.imageBackground}>
         <View style={styles.overlay}>
-          <View style={[styles.dflex, styles.directionRow, styles.justifyCenter, {justifyContent: 'space-between', width:260}]}>
+          <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter, {justifyContent: 'space-between', width:260}]}>
             <Text style={styles.text}>{couple.wifeName}</Text>
             <Text style={styles.text}>&</Text>
             <Text style={styles.text}>{couple.husbandName}</Text>
           </View>
-          <View style={[styles.dflex, styles.directionRow, styles.justifyCenter, {width:260}]}>
+          <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter, {width:260}]}>
             <Text style={styles.text}>{renderDate()}</Text>
           </View>
-          <View style={[styles.dflex, styles.directionRow, styles.justifyCenter, {width:300}]}>
+          <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter, {width:300}]}>
             <Text style={styles.text}>{couple.weddingVenue}</Text>
           </View>
           
-          <View style={[styles.dflex, styles.directionRow, styles.justifyCenter]}>
+          <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter]}>
             <View style={styles.indexCounterWrapper}>
-              <Text style={[styles.h_2, styles.justifyCenter, styles.alignCenter,{fontWeight:'bold'}]}>{renderDateUnit(timeRemaining.days)}</Text>
+              <Text style={[styles.h_2, styles.justifyCenter, GlobalStyles.alignCenter,{fontWeight:'bold'}]}>{renderDateUnit(timeRemaining.days)}</Text>
               <View style={[styles.h_2, styles.directionRow]}>
-                <Text style={[styles.w_4, {fontWeight:'bold',transform:'translateX(4px) translateY(12px) rotate(34deg)'}]}>D</Text>
-                <Text style={[styles.w_4, {fontWeight:'bold',transform:'translateX(0px) translateY(19px) rotate(23deg)'}]}>i</Text>
-                <Text style={[styles.w_4, {fontWeight:'bold',transform:'translateX(0px) translateY(19px) rotate(-23deg)'}]}>a</Text>
-                <Text style={[styles.w_4, {fontWeight:'bold',transform:'translateX(-4px) translateY(12px) rotate(-34deg)'}]}>s</Text>
+                <Text style={[styles.w_4, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(0px) translateY(14px) rotate(40deg)' :'translateX(4px) translateY(12px) rotate(34deg)'}]}>D</Text>
+                <Text style={[styles.w_4, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(0px) translateY(28px) rotate(8deg)':'translateX(0px) translateY(19px) rotate(23deg)'}]}>i</Text>
+                <Text style={[styles.w_4, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(0px) translateY(28px) rotate(-8deg)':'translateX(0px) translateY(19px) rotate(-23deg)'}]}>a</Text>
+                <Text style={[styles.w_4, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(0px) translateY(14px) rotate(-40deg)':'translateX(-4px) translateY(12px) rotate(-34deg)'}]}>s</Text>
               </View>
             </View>
             <View style={[styles.indexCounterWrapper,{marginLeft: windowWidth < 768 ? 5 : windowWidth < 1200 ? 15 :30 }]}>
-              <Text style={[styles.h_2,styles.justifyCenter, styles.alignCenter,{fontWeight:'bold'}]}>{renderDateUnit(timeRemaining.hours)}</Text>
+              <Text style={[styles.h_2,GlobalStyles.itemCenter,{fontWeight:'bold'}]}>{renderDateUnit(timeRemaining.hours)}</Text>
               <View style={[styles.h_2, styles.directionRow]}>
-                <Text style={[styles.w_5, {fontWeight:'bold',transform:'translateX(1px) translateY(8px) rotate(40deg)'}]}>H</Text>
-                <Text style={[styles.w_5, {fontWeight:'bold',transform:'translateX(-1px) translateY(18px) rotate(23deg)'}]}>o</Text>
-                <Text style={[styles.w_5, {fontWeight:'bold',transform:'translateX(0px) translateY(22px) rotate(0deg)'}]}>r</Text>
-                <Text style={[styles.w_5, {fontWeight:'bold',transform:'translateX(-1px) translateY(18px) rotate(-23deg)'}]}>a</Text>
-                <Text style={[styles.w_5, {fontWeight:'bold',transform:'translateX(-3px) translateY(8px) rotate(-40deg)'}]}>s</Text>
+                <Text style={[styles.w_5, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(1px) translateY(12px) rotate(40deg)':'translateX(1px) translateY(8px) rotate(40deg)'}]}>H</Text>
+                <Text style={[styles.w_5, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(-1px) translateY(25px) rotate(23deg)':'translateX(-1px) translateY(18px) rotate(23deg)'}]}>o</Text>
+                <Text style={[styles.w_5, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(0px) translateY(30px) rotate(0deg)':'translateX(0px) translateY(22px) rotate(0deg)'}]}>r</Text>
+                <Text style={[styles.w_5, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(-1px) translateY(25px) rotate(-23deg)':'translateX(-1px) translateY(18px) rotate(-23deg)'}]}>a</Text>
+                <Text style={[styles.w_5, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(-3px) translateY(13px) rotate(-40deg)':'translateX(-3px) translateY(8px) rotate(-40deg)'}]}>s</Text>
               </View>
             </View>
             <View style={[styles.indexCounterWrapper,{marginLeft: windowWidth < 768 ? 5 : windowWidth < 1200 ? 15 :30 }]}>
-              <Text style={[styles.h_2, styles.justifyCenter, styles.alignCenter,{fontWeight:'bold'}]}>{renderDateUnit(timeRemaining.minutes)}</Text>
+              <Text style={[styles.h_2, GlobalStyles.itemCenter,{fontWeight:'bold'}]}>{renderDateUnit(timeRemaining.minutes)}</Text>
               <View style={[styles.h_2, styles.directionRow]}>
-                <Text style={[styles.w_3, {fontWeight:'bold',transform:'translateX(4px) translateY(13px) rotate(24deg)'}]}>M</Text>
-                <Text style={[styles.w_3, {fontWeight:'bold',transform:'translateX(0px) translateY(20px) rotate(0deg)'}]}>i</Text>
-                <Text style={[styles.w_3, {fontWeight:'bold',transform:'translateX(-5px) translateY(13px) rotate(-24deg)'}]}>n</Text>
+                <Text style={[styles.w_3, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(4px) translateY(18px) rotate(35deg)':'translateX(4px) translateY(13px) rotate(24deg)'}]}>M</Text>
+                <Text style={[styles.w_3, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(0px) translateY(30px) rotate(0deg)':'translateX(0px) translateY(20px) rotate(0deg)'}]}>i</Text>
+                <Text style={[styles.w_3, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(-6px) translateY(19px) rotate(-35deg)':'translateX(-5px) translateY(13px) rotate(-24deg)'}]}>n</Text>
               </View>
             </View>
             <View style={[styles.indexCounterWrapper,{marginLeft: windowWidth < 768 ? 5 : windowWidth < 1200 ? 15 :30 }]}>
-              <Text style={[styles.h_2, styles.justifyCenter, styles.alignCenter,{fontWeight:'bold'}]}>{renderDateUnit(timeRemaining.seconds)}</Text>
+              <Text style={[styles.h_2, GlobalStyles.itemCenter,{fontWeight:'bold'}]}>{renderDateUnit(timeRemaining.seconds)}</Text>
               <View style={[styles.h_2, styles.directionRow]}>
-                <Text style={[styles.w_3, {fontWeight:'bold',transform:'translateX(4px) translateY(13px) rotate(24deg)'}]}>S</Text>
-                <Text style={[styles.w_3, {fontWeight:'bold',transform:'translateX(0px) translateY(20px) rotate(0deg)'}]}>e</Text>
-                <Text style={[styles.w_3, {fontWeight:'bold',transform:'translateX(-5px) translateY(13px) rotate(-24deg)'}]}>g</Text>
+              <Text style={[styles.w_3, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(4px) translateY(18px) rotate(35deg)':'translateX(4px) translateY(13px) rotate(24deg)'}]}>S</Text>
+                <Text style={[styles.w_3, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(0px) translateY(30px) rotate(0deg)':'translateX(0px) translateY(20px) rotate(0deg)'}]}>e</Text>
+                <Text style={[styles.w_3, {fontWeight:'bold',transform:windowWidth >= 768 ? 'translateX(-6px) translateY(19px) rotate(-35deg)':'translateX(-5px) translateY(13px) rotate(-24deg)'}]}>g</Text>
               </View>
             </View>
           </View>
@@ -168,12 +168,6 @@ const styles = StyleSheet.create({
     },
     directionRow:{
       flexDirection:'row'
-    },
-    justifyCenter:{
-      justifyContent: 'center',
-    },
-    alignCenter:{
-      alignItems: 'center'
     },
     overlay: {
       height: 960,

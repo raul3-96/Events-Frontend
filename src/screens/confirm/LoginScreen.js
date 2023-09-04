@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, View, Text, ImageBackground, Image, Pressable, ScrollView, TextInput, FieldArray } from 'react-native'
+import { StyleSheet, View, Text, Pressable}from 'react-native'
 import * as GlobalStyles from '../../styles/GlobalStyles'
 import InputItemFormik from '../../components/InputItemFormik'
 import TextRegular from '../../components/TextRegular'
-import TextSemiBold from '../../components/TextSemibold'
 import { AuthorizationContext } from '../../context/AuthorizationContext'
 import Header from '../../components/Header'
 import * as yup from 'yup'
 import { Formik } from 'formik'
-import FlashMessage ,{ showMessage } from 'react-native-flash-message'
+import { showMessage } from 'react-native-flash-message'
 import TextError from '../../components/TextError'
+import TextSemiBold from '../../components/TextSemibold'
 
 export default function LoginScreen ({ navigation, route }) {
     const [backendErrors, setBackendErrors] = useState()
@@ -63,11 +63,11 @@ export default function LoginScreen ({ navigation, route }) {
       <View style={{zIndex:9999}}>
         <Header navigation={navigation} activeTitle="Confirmar asistencia"></Header>
       </View>
-      <View style={[styles.container, styles.center,{marginTop:55}]}>
-        <View style={styles.containerCentered}>
-          <Text style={{fontWeight:'bold', fontSize:24, textAlign:'center'}}>¡Identificate!</Text>
-          <Text style={{fontWeight:'bold', fontSize:18, textAlign:'center'}}>Para confirmar tu asistencia es necesario identificar tu invitación.</Text>
-          <View style={[styles.container, styles.center,{marginTop:20}]}>
+      <View style={[GlobalStyles.itemCenter,{marginTop:55}]}>
+        <View style={[GlobalStyles.containerCenter,{textAlign:'center'}]}>
+          <TextSemiBold size={24}>¡Identificate!</TextSemiBold>
+          <TextSemiBold size={18}>Para confirmar tu asistencia es necesario identificar tu invitación.</TextSemiBold>
+          <View style={[styles.container, GlobalStyles.itemCenter,{marginTop:20}]}>
             <View style={{minWidth: 255, width:'50%'}}>
                 <InputItemFormik
                 name='phone'
@@ -78,7 +78,7 @@ export default function LoginScreen ({ navigation, route }) {
                 <InputItemFormik
                 name='password'
                 label='Código:'
-                placeholder='secret'
+                placeholder='********'
                 textContentType='password'
                 secureTextEntry={true}
                 />
@@ -88,21 +88,21 @@ export default function LoginScreen ({ navigation, route }) {
                 }
 
                 <Pressable
-                onPress={handleSubmit}
-                style={({ pressed }) => [
-                    {
-                    backgroundColor: pressed
-                        ? GlobalStyles.brandSuccessTap
-                        : GlobalStyles.brandSuccess
-                    },
-                    styles.center,
-                    styles.button
-                ]}>
-                <TextRegular textStyle={styles.text}>
-                    Identifícate
-                </TextRegular>
+                  onPress={handleSubmit}
+                  style={({ pressed }) => [
+                      {
+                      backgroundColor: pressed
+                          ? GlobalStyles.brandSuccessTap
+                          : GlobalStyles.brandSuccess
+                      },
+                      GlobalStyles.itemCenter,
+                      styles.button
+                  ]}>
+                  <TextSemiBold size={16}>
+                      Identifícate
+                  </TextSemiBold>
                 </Pressable>
-                </View>
+              </View>
             </View>
         </View>
       </View>
@@ -112,21 +112,6 @@ export default function LoginScreen ({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  center:{
-    alignItems: "center", 
-    justifyContent: "center",
-  },
-  containerCentered: {
-    flex: 1,
-    justifyContent: 'center',
-    width:'100%',
-    maxWidth:1250,
-    display:'flex',
-    padding:15
-  },  
   button: {
     borderRadius: 8,
     height: 40,
