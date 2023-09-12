@@ -66,7 +66,7 @@ export default function InfoScreen ({ navigation }) {
                         <TextSemiBold size={20} textStyle={[{color:'#3E3E3E', paddingTop:20}]}>Celebración: 
                             <TextSemiBold size={20} style={[{color:GlobalStyles.brandPrimaryTap}]}> {couple.invitationPlace}</TextSemiBold></TextSemiBold>
                         <TextSemiBold size={20} textStyle={[{color:'#3E3E3E', paddingTop:20}]}>Hora: 
-                            <TextSemiBold size={20} style={[{color:GlobalStyles.brandPrimaryTap}]}> {couple.timingInvitation}</TextSemiBold></TextSemiBold>
+                            <TextSemiBold size={20} style={[{color:GlobalStyles.brandPrimaryTap}]}> {couple.invitationDate}</TextSemiBold></TextSemiBold>
     
                         <TextSemiBold size={20} textStyle={[{color:'#3E3E3E', paddingTop:20}]}>Ubicación: 
                             <TextSemiBold size={20}> <a href="https://goo.gl/maps/P8wCTbyWoYMRPP1J7">Hacienda {couple.weddingVenue}</a></TextSemiBold></TextSemiBold>

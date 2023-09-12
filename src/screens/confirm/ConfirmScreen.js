@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState } from 'react'
-import { StyleSheet, View, Text, ImageBackground, Image, Pressable, FlatList, Dimensions, ScrollView, TextInput, FieldArray } from 'react-native'
+import { StyleSheet, View, Text,  Pressable, FlatList, Dimensions} from 'react-native'
 import * as GlobalStyles from '../../styles/GlobalStyles'
 import TextSemiBold from '../../components/TextSemibold'
 import Header from '../../components/Header'
@@ -7,10 +7,10 @@ import InputItem from '../../components/InputItem'
 import { getByUser, getGuest, deleteGuest, postGuest, updateGuest, confirmInvitation, deniedInvitation } from '../../api/InvitationEndpoints'
 import { AuthorizationContext } from '../../context/AuthorizationContext'
 import TextRegular from '../../components/TextRegular'
-import FlashMessage ,{showMessage } from 'react-native-flash-message'
+import {showMessage } from 'react-native-flash-message'
 import ConfirmModal from '../../components/ConfirmModal'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { CheckBox } from 'react-native-web'
+import { Dropdown } from 'react-native-element-dropdown';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -33,7 +33,9 @@ export default function ConfirmScreen ({ navigation, route }) {
   const [flagUpdateGuest,setflagUpdateGuest] = useState(null)
   const [flagconfirmInvitation,setflagconfirmInvitation] = useState(null)
   const [flagdeniedInvitation,setflagdeniedInvitation] = useState(null)
-  
+
+  const [isFocus, setIsFocus] = useState(false);
+  const selectedChild = {}
 
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function ConfirmScreen ({ navigation, route }) {
         fetchInvitationGuest(fetchedInvitation)
       } catch (error) {
         showMessage({
-          message: `Tha ocurrido un error al rescatar los datos de la invitacion. ${error} `,
+          message: `Ha ocurrido un error al rescatar los datos de la invitacion.`,
           type: 'danger',
           style: GlobalStyles.flashStyle,
           titleStyle: GlobalStyles.flashTextStyle
@@ -59,9 +61,13 @@ export default function ConfirmScreen ({ navigation, route }) {
         const fetchedGuest = await getGuest(fetchedInvitation ? fetchedInvitation.id : invitation.id)
         console.log(fetchedGuest)
         setGuest(fetchedGuest)
+        Object.keys(fetchedGuest).forEach((key) => {
+          selectedChild[fetchedGuest[key].id] = false;
+        })
+        console.log(selectedChild)
       } catch (error) {
         showMessage({
-          message: `Tha ocurrido un error al rescatar los datos de los invitados. ${error} `,
+          message: `Ha ocurrido un error al rescatar los datos de los invitados.`,
           type: 'danger',
           style: GlobalStyles.flashStyle,
           titleStyle: GlobalStyles.flashTextStyle
@@ -105,7 +111,7 @@ export default function ConfirmScreen ({ navigation, route }) {
     catch (error) {
       console.log(error)
       showMessage({
-        message: `Ha ocurrido un error al eliminar al invitado. ${error} `,
+        message: `Ha ocurrido un error al eliminar al invitado.`,
         type: 'danger',
         style: GlobalStyles.flashStyle,
         titleStyle: GlobalStyles.flashTextStyle
@@ -234,28 +240,45 @@ export default function ConfirmScreen ({ navigation, route }) {
       [id]: !prevExpandedGuests[id],
     }));
     setIdGuest(expandedGuests[id] ? 0 : id);
-  };
+  }
 
+  const renderMenu = (val) =>
+    val ? 'Infantil' : 'Adulto'
 
+  const renderLabel = () => {
+    if (value || isFocus) {
+      return (
+        <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+          Dropdown label
+        </Text>
+      )
+    }
+    return null
+  }
+  const data = [
+    { label: renderMenu(false), value: 'false' },
+    { label: renderMenu(true), value: 'true' }
+  ]
+  
   const renderGuests = ({ item }) => {
     return (
       <View style={{ backgroundColor: GlobalStyles.brandBackground }}>
         {/* Primera fila */}
-        {!expandedGuests[item.id] && <View style={{ display: 'flex', flexDirection : 'row'}}>
+        {!expandedGuests[item.id] && <View style={[GlobalStyles.flex,{ flexDirection : 'row', textAlign:'center'}]}>
           <View style={styles.contentRow}>
-            <Text style={{ fontSize: 14, textAlign: 'center' }} numberOfLines={1} ellipsizeMode="tail">
+            <TextRegular size={14} numberOfLines={1} ellipsizeMode="tail">
               {item.name}
-            </Text>
+            </TextRegular>
           </View>
           <View style={styles.contentRow}>
-            <Text style={{ fontSize: 14, textAlign: 'center' }}>
-              {!item.child ? 'Adulto' : 'Infantil'}
-            </Text>
+            <TextRegular size={14}>
+              {renderMenu(item.child)}
+            </TextRegular>
           </View>
           <View style={styles.contentRow}>
-            <Text style={{ fontSize: 14, textAlign: 'center' }}>
+            <TextRegular size={14}>
               {item.alergenos ? item.alergenos : 'Ninguno'}
-            </Text>
+            </TextRegular>
           </View>
           {invitation.status == 'pending' ?
           <View style={[styles.contentRow, { width: '10%', flexDirection: 'row', justifyContent: 'space-between' }]}>
@@ -281,9 +304,10 @@ export default function ConfirmScreen ({ navigation, route }) {
   }
 
   const renderFillGuest = (item) => {
-    return (<View style={[styles.flexInput,{ display: 'flex'}]}>
+    return (<View style={[styles.flexInput, GlobalStyles.flex]}>
     <View style={[styles.contentRow, { width:windowWidth >= 500 ? '30%' : '50%'}]}>
       <InputItem
+        style={{backgroundColor:'white'}}
         name='nombre'
         textContentType='nombre'
         placeholder={item ? item.name : 'Nombre'}
@@ -292,10 +316,27 @@ export default function ConfirmScreen ({ navigation, route }) {
       ></InputItem>
     </View>
     <View style={[styles.contentRow, { width:windowWidth >= 500 ? '30%' : '50%'}]}>
-      <CheckBox value={child} onValueChange={setChild} style={styles.checkbox} />
+      {/*<CheckBox value={child} onValueChange={setChild} style={styles.checkbox} />*/}
+      <Dropdown
+      style={{backgroundColor:'white', borderRadius:8,borderWidth:1,borderColor:GlobalStyles.brandPrimary, marginTop:14, height:40}}
+        data={data}
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder={!isFocus && item != null ? renderMenu(item.child) : '...'}
+        searchPlaceholder="Search..."
+        value={child}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
+        onChange={item => {
+          console.log(item.value)
+          setChild(item.value)
+          setIsFocus(false);
+        }}></Dropdown>
     </View>
     <View style={[styles.contentRow, { width:windowWidth >= 500 ? '30%' : '50%'}]}>
       <InputItem
+        style={{backgroundColor:'white'}}
         name='alergenos'
         textContentType='alergenos'
         placeholder={item ? item.alergenos ? item.alergenos : 'Ninguno' : 'Alérgenos'}
@@ -303,7 +344,7 @@ export default function ConfirmScreen ({ navigation, route }) {
         onChangeText={setAlergenos}
       ></InputItem>
     </View>
-    <View style={[styles.contentRow, { width: windowWidth >= 990 ? '10%':'40%', flexDirection: 'row', justifyContent: 'space-between' }]}>
+    <View style={[styles.contentRow, { width: windowWidth >= 990 ? '10%':'40%', flexDirection: 'row', justifyContent: 'space-between', marginTop:14 }]}>
       { item ? 
         <Pressable onPress={() => setflagUpdateGuest(true)} >
           <MaterialCommunityIcons name='content-save' color={'green'} size={25} />
@@ -344,8 +385,7 @@ export default function ConfirmScreen ({ navigation, route }) {
           isVisible={flagDelete !== null}
           onCancel={() => {setflagDelete(null)}}
           onConfirm={handleSubmitDelete}>
-            <TextRegular>¿Está seguro que desea cancelar?</TextRegular>
-            
+            <TextRegular size={16}>¿Está seguro que desea cancelar?</TextRegular>
         </ConfirmModal>
     )
   }
@@ -366,8 +406,7 @@ export default function ConfirmScreen ({ navigation, route }) {
             isVisible={true}
             onCancel={() => {setflagAddGuest(null)}}
             onConfirm={handleSaveGuest}>
-              <TextRegular>¿Está seguro que desea añadir al invitado con nombre: {nombre}, menu: {child} y alegernos: {alergenos}?</TextRegular>
-              
+              <TextRegular size={16}>¿Está seguro que desea añadir al invitado con nombre: {nombre}, menu: {child} y alegernos: {alergenos}?</TextRegular>
           </ConfirmModal>
       )
   }
@@ -388,8 +427,7 @@ export default function ConfirmScreen ({ navigation, route }) {
             isVisible={true}
             onCancel={() => {setflagUpdateGuest(null)}}
             onConfirm={handleUpdateGuest}>
-              <TextRegular>¿Está seguro que desea actualizar al invitado con nombre: {nombre}, menu: {child} y alegernos: {alergenos}?</TextRegular>
-              
+              <TextRegular size={16}>¿Está seguro que desea actualizar al invitado con nombre: {nombre}, menu: {child} y alegernos: {alergenos}?</TextRegular>
           </ConfirmModal>
       )
   }
@@ -418,117 +456,159 @@ export default function ConfirmScreen ({ navigation, route }) {
     )
   }
 
-  const renderEmptyRestaurantsList = () => {
+  const renderHeader = (text) =>{
+    return(
+      <View style={styles.contentRow}>
+        <TextSemiBold size={18} textStyle={[{color:"white"}]}>{text}</TextSemiBold>
+      </View>
+    )
+  }
+
+  const renderEmptyGuestList = () => {
     return (
-      <TextRegular textStyle={styles.emptyList}>
-        No restaurants were retreived. Are you logged in?
+      <TextRegular size={16}>
+        No hay invitados asociados a esta invitación.
       </TextRegular>
     )
   }
   return (
-    <View style={{flex:1,position: 'relative'}}>
-      <View style={{zIndex:9999}}>
+    <View style={{ flex: 1, position: "relative" }}>
+      <View style={{ zIndex: 9999 }}>
         <Header navigation={navigation} activeTitle="Confirmar asistencia"></Header>
       </View>
-      <View style={styles.container}>
-        <View style={GlobalStyles.containerCenter}>
-        {invitation.status == 'pending' ? 
-          <><Text style={{fontWeight:'bold', fontSize:24, textAlign:'center'}}>¡Confirma tu asistencia!</Text>
-          <Text style={{fontWeight:'bold', fontSize:18, textAlign:'center'}}>Podéis utilizar este formulario para confirmar vuestra asistencia a la boda. Si vais a confirmar para varios invitados por favor indicad los nombres de todos los que asistirán</Text></>
-          : <Text style={{fontWeight:'bold', fontSize:16, textAlign:'center'}}>¡Invitación confirmada!</Text>}
-          {/*<Formik
-          validationSchema={validationSchema}
-          initialValues={{ phone: '', password: '' }}
-          onSubmit={login}>
-          {({ handleSubmit }) => (
+      <View style={[GlobalStyles.itemCenter, { marginTop: 55, flex: 1 }]}>
+        <View style={[GlobalStyles.containerCenter, { textAlign: "center", justifyContent:'flex-start' }]}>
+          {invitation.status == "pending" ? (
+            <>
+              <TextSemiBold size={24}>¡Confirma tu asistencia!</TextSemiBold>
+              <TextSemiBold size={18}>
+                Podéis utilizar este formulario para confirmar vuestra asistencia a
+                la boda. Si vais a confirmar para varios invitados por favor indicad
+                los nombres de todos los que asistirán
+              </TextSemiBold>
+            </>
+          ) : (
+            <TextSemiBold size={16}>¡Invitación confirmada!</TextSemiBold>
           )}
-          </Formik>*/}
-          <View style={{marginTop:20, padding: 10}}>
-              <View style={{display:'flex', flexDirection:'row', backgroundColor:'#81B7BA'}}>
-                <View style={styles.contentRow}>
-                  <Text style={{fontSize:16, textAlign:'center'}}>Nombre</Text>
-                </View>
-                <View style={styles.contentRow}>
-                  <Text style={{fontSize:16, textAlign:'center'}}>Menú</Text>
-                </View>
-                <View style={styles.contentRow}>
-                  <Text style={{fontSize:16, textAlign:'center'}}>Alérgenos</Text>
-                </View>
-              </View>
-              <FlatList
-                data={guest}
-                ListEmptyComponent={renderEmptyRestaurantsList}
-                renderItem={renderGuests}
-                keyExtractor={(item) => item.id}
-              />
-          {invitation.status == 'pending' ? 
-            
-          <View style={{display:'flex', flexDirection:'row', justifyContent:' center'}}>
-            <Pressable onPress={() => setflagconfirmInvitation(true)}
-              style={({ pressed }) => [
+          <View style={{ marginTop: 20, padding: 10, textAlign: "center" }}>
+            <View
+              style={[GlobalStyles.flex,
                 {
-                  backgroundColor: pressed
-                    ? GlobalStyles.brandGreenTap2
-                    : GlobalStyles.brandGreen2
-                    ,textAlign:'center'
-                },
-                styles.button, styles.container, {color:'white'}]} >
-              <TextRegular textStyle={[styles.text,{color:'white'}]}>¡Confirmar mi asistencia!</TextRegular>
-              {flagconfirmInvitation !== null && popupModalConfirmInvitation()}
-            </Pressable>   
-            <Pressable onPress={() => setflagdeniedInvitation(true)}
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed
-                    ? GlobalStyles.brandPrimaryTap
-                    : GlobalStyles.brandPrimary
-                    ,textAlign:'center'
-                },
-                styles.button, styles.container, {color:'white', marginLeft:50}]} >
-              <TextRegular textStyle={[styles.text,{color:'white'}]}>No iré</TextRegular>
-              {flagdeniedInvitation !== null && popupModalDeniedInvitation()}
-            </Pressable>  
-          </View> 
-            
-            : null  }
-            
-            
-          {/*<Pressable onPress={() => signOutAndNavigate()}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed
-                  ? GlobalStyles.brandPrimaryTap
-                  : GlobalStyles.brandPrimary
-              },
-              styles.button, styles.container, {color:'white'}]} >
-            <TextRegular textStyle={styles.text}>Sign out</TextRegular>
-            </Pressable>*/}
-            
+                  flexDirection: "row",
+                  backgroundColor: GlobalStyles.brandPrimaryTap,
+                }]}
+            >
+              {renderHeader("Nombre")}
+              
+              {renderHeader("Menú")}
+              
+              {renderHeader("Alérgenos")}
             </View>
-            {invitation.status == 'pending' ? <Pressable onPress={() => {
-                addGuest(!showAddGuestForm)
-                setNombre(null)
-                setAlergenos(null)
-                setChild(null)}}
-                
+            <FlatList
+              data={guest}
+              ListEmptyComponent={renderEmptyGuestList}
+              renderItem={renderGuests}
+              keyExtractor={(item) => item.id}
+            />
+            {invitation.status == "pending" ? (
+              <View
+                style={[
+                  GlobalStyles.justifyCenter,
+                  GlobalStyles.flex,
+                  styles.buttonFlex
+                ]}
+              >
+                <Pressable
+                  onPress={() => setflagconfirmInvitation(true)}
+                  style={({ pressed }) => [
+                    {
+                      backgroundColor: pressed
+                        ? GlobalStyles.brandGreenTap2
+                        : GlobalStyles.brandGreen2,
+                      textAlign: "center",
+                    },
+                    styles.button,
+                    styles.container,
+                    { color: "white",minWidth:240 },
+                  ]}
+                >
+                  <TextRegular size={16} textStyle={[{ color: "white" }]}>
+                    ¡Confirmar mi asistencia!
+                  </TextRegular>
+                  {flagconfirmInvitation !== null && popupModalConfirmInvitation()}
+                </Pressable>
+                <Pressable
+                  onPress={() => setflagdeniedInvitation(true)}
+                  style={({ pressed }) => [
+                    {
+                      backgroundColor: pressed
+                        ? GlobalStyles.brandErrorTap
+                        : GlobalStyles.brandError,
+                      textAlign: "center",
+                    },
+                    styles.button,
+                    styles.container,
+                    { color: "white", marginLeft: windowWidth >=990 ? 50 : 0,
+                      minWidth:240 },
+                  ]}
+                >
+                  <TextRegular size={16} textStyle={[{ color: "white" }]}>
+                    No iré
+                  </TextRegular>
+                  {flagdeniedInvitation !== null && popupModalDeniedInvitation()}
+                </Pressable>
+              </View>
+            ) : null}
+
+            {/*<Pressable onPress={() => signOutAndNavigate()}
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed
+                      ? GlobalStyles.brandPrimaryTap
+                      : GlobalStyles.brandPrimary
+                  },
+                  styles.button, styles.container, {color:'white'}]} >
+                <TextRegular textStyle={styles.text}>Sign out</TextRegular>
+                </Pressable>*/}
+          </View>
+          {invitation.status == "pending" ? (
+            <Pressable
+              onPress={() => {
+                addGuest(!showAddGuestForm);
+                setNombre(null);
+                setAlergenos(null);
+                setChild(null);
+              }}
               style={({ pressed }) => [
                 {
                   backgroundColor: pressed
                     ? GlobalStyles.brandGreenTap
                     : GlobalStyles.brandGreen,
-                  position: 'absolute',
-                  height:40,
-                  width: '100%',
+                  position: "absolute",
+                  height: 40,
+                  width: "100%",
                   bottom: 0,
-                  left:0,
-                  justifyContent:'center',
-                  alignItems:'center',
-                  flexDirection: 'row'
-                }]} >
-              <MaterialCommunityIcons name='plus' color={'white'} size={20}/>
-              <TextRegular textStyle={[styles.text, styles.flexCenter, {color:'white'}]}>Añadir invitado</TextRegular>
-            </Pressable> : null
-          }
+                  left: 0,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "row",
+                },
+              ]}
+            >
+              <MaterialCommunityIcons name="plus" color={"white"} size={20} />
+              <TextRegular
+                size={16}
+                textStyle={[
+                  styles.text,
+                  GlobalStyles.flex,
+                  GlobalStyles.justifyCenter,
+                  { color: "white" },
+                ]}
+              >
+                Añadir invitado
+              </TextRegular>
+            </Pressable>
+          ) : null}
           {showAddGuestForm && renderFillGuest()}
         </View>
       </View>
@@ -537,12 +617,6 @@ export default function ConfirmScreen ({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center", 
-    justifyContent: "center",
-    marginTop:55
-  },
   contentRow: {
     width:windowWidth >= 500 ? '30%' : '28%', 
     paddingTop: 5,
@@ -563,16 +637,6 @@ const styles = StyleSheet.create({
     maxWidth: 300,
     minWidth: 50,
   },
-  flexCenter:{
-    display:'flex',
-    justifyContent:'center',
-    alignItems:'center'
-  }, 
-  containerCheck: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   checkbox: {
     alignSelf: 'center',
     marginTop: 20
@@ -580,5 +644,8 @@ const styles = StyleSheet.create({
   flexInput : {
     flexDirection: windowWidth >= 990 ? 'row' : 'column',
     alignItems:'center'
-  }  
+  },
+  buttonFlex:{
+    flexDirection: windowWidth >= 990 ? 'row' : 'column',
+  }
 })

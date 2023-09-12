@@ -3,6 +3,7 @@ import React from 'react'
 import { TextInput, StyleSheet, View } from 'react-native'
 import TextError from './TextError'
 import TextRegular from './TextRegular'
+import * as GlobalStyles from '../styles/GlobalStyles'
 
 export default function InputItem (props) {
   const { label, name, item, onChangeText, ...inputProps } = props
@@ -18,7 +19,7 @@ export default function InputItem (props) {
             <TextInput
                 {...inputProps}
                 name={name}
-                style={styles.input}
+                style={[styles.input, props.style]}
                 onChangeText={onChangeText} 
                 onBlur={formik ? formik.handleBlur(name) : undefined}
                 value={formik && formik.values[name] ? formik.values[name].toString() : undefined}
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 40,
     borderWidth: 1,
+    borderColor:GlobalStyles.brandPrimary,
     padding: 10
   }
 })
