@@ -1,11 +1,30 @@
 import { get, post, destroy, put, patch } from './helpers/ApiRequestsHelper'
 
+function getInvitationAll () {
+  return get(`invitations`)
+}
+function putUser (data) {
+  return put(`invitations`, data)
+}
+
+function postInvitation(data){
+  return post(`invitations`, data)
+}
+
 function getByUser (id) {
   return get(`invitationsId/${id}`)
 }
 
 function getGuest (id) {
   return get(`invitations/${id}/guests`)
+}
+
+function getInvitation (id) {
+  return get(`invitations/${id}`)
+}
+
+function deleteInvitation (id) {
+  return destroy(`invitations/${id}`)
 }
 
 function deleteGuest(id){
@@ -28,4 +47,4 @@ function deniedInvitation(id){
   return patch(`invitations/${id}/denied`)
 }
 
-export { getByUser, getGuest, deleteGuest, postGuest, updateGuest, confirmInvitation, deniedInvitation}
+export { getInvitationAll, putUser, postInvitation, getByUser, getGuest, deleteInvitation, getInvitation, deleteGuest, postGuest, updateGuest, confirmInvitation, deniedInvitation}

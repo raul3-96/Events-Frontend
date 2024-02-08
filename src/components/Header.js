@@ -17,9 +17,8 @@ export default function Header({ navigation, activeTitle }) {
   const renderNavItems = () => {
     const navItems = [
       { title: "Inicio", route: "Home" },
-      {
-        title: "Confirmar asistencia",
-        route: loggedInUser ? "Confirmar" : "Login",
+      { title: loggedInUser && loggedInUser.userType == 'owner' ? 'Administracion' : 'Confirmar asistencia', 
+        route: !loggedInUser ? 'Login' : loggedInUser.userType == 'guest'? 'Confirmar' : 'Administracion' 
       },
       { title: "Lista", route: "List" },
       { title: "Información", route: "Info" },

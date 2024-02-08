@@ -15,6 +15,7 @@ import { AppContext } from '../context/AppContext'
 import { ApiError } from '../api/helpers/Errors'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ConfirmScreen from './confirm/ConfirmScreen'
+import PanelAdminScreen from './panel/PanelAdminScreen'
 import ListScreen from './List/ListScreen'
 import InfoScreen from './info/InfoScreen'
 
@@ -46,6 +47,7 @@ export default function Layout () {
       }
       setError(null)
     }
+    console.log(loggedInUser)			  
   }, [loggedInUser,error])
 
   useEffect(() => {
@@ -62,7 +64,8 @@ export default function Layout () {
       <Stack.Navigator screenOptions={{headerShown : false}}>
         <Stack.Screen name="Home" component={MainScreen} />
         {!loggedInUser ? <Stack.Screen name="Login" component={LoginScreen} /> :
-        <Stack.Screen name="Confirmar" component={ConfirmScreen} />}
+          loggedInUser.userType == 'owner' ? <Stack.Screen name="Administracion" component={PanelAdminScreen} />
+            : <Stack.Screen name="Confirmar" component={ConfirmScreen} />}
         <Stack.Screen name="List" component={ListScreen} />
         <Stack.Screen name="Info" component={InfoScreen} />
       </Stack.Navigator>

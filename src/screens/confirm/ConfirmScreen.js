@@ -267,7 +267,7 @@ export default function ConfirmScreen ({ navigation, route }) {
         {!expandedGuests[item.id] && <View style={[GlobalStyles.flex,{ flexDirection : 'row', textAlign:'center'}]}>
           <View style={styles.contentRow}>
             <TextRegular size={14} numberOfLines={1} ellipsizeMode="tail">
-              {item.name}
+              {item.user.firstName}
             </TextRegular>
           </View>
           <View style={styles.contentRow}>
@@ -310,8 +310,8 @@ export default function ConfirmScreen ({ navigation, route }) {
         style={{backgroundColor:'white'}}
         name='nombre'
         textContentType='nombre'
-        placeholder={item ? item.name : 'Nombre'}
-        value={item ? item.name : ''}
+        placeholder={item ? item.user.firstName : 'Nombre'}
+        value={item ? item.user.firstName : ''}
         onChangeText={setNombre}
       ></InputItem>
     </View>
