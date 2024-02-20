@@ -8,7 +8,8 @@ import LoginScreen from './confirm/LoginScreen'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // eslint-disable-next-line camelcase
-import { useFonts, Montserrat_400Regular, Montserrat_600SemiBold } from '@expo-google-fonts/montserrat'
+import { Montserrat_400Regular, Montserrat_600SemiBold } from '@expo-google-fonts/montserrat'
+import { useFonts, Ephesis_400Regular, Ephesis_600SemiBold } from '@expo-google-fonts/ephesis'
 import FlashMessage, { showMessage } from 'react-native-flash-message'
 import { AuthorizationContext } from '../context/AuthorizationContext'
 import { AppContext } from '../context/AppContext'
@@ -55,8 +56,8 @@ export default function Layout () {
   }, [])
 
   const [fontsLoaded] = useFonts({
-    Montserrat_400Regular,
-    Montserrat_600SemiBold
+    Ephesis_400Regular,
+    Ephesis_600SemiBold
   })
   return (
     <View style={styles.container}>

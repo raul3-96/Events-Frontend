@@ -13,6 +13,6 @@ export default function TextRegular (props) {
 const styles = StyleSheet.create({
   text: {
     fontSize: 12,
-    fontFamily: 'Montserrat_400Regular'
+    fontFamily: 'Oregano_400Regular'
   }
 })

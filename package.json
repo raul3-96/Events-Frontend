@@ -5,10 +5,14 @@
     "android": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider expo start --android",
     "ios": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider expo start --ios",
     "web": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "build": "expo prebuild"
   },
   "dependencies": {
+    "@expo-google-fonts/corinthia": "^0.2.3",
+    "@expo-google-fonts/ephesis": "^0.2.3",
     "@expo-google-fonts/montserrat": "^0.2.2",
+    "@expo-google-fonts/oregano": "^0.2.2",
     "@expo/webpack-config": "^0.17.2",
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-navigation/bottom-tabs": "^6.5.4",
@@ -19,14 +23,17 @@
     "babel-plugin-import": "^1.13.6",
     "babel-plugin-inline-dotenv": "^1.7.0",
     "bootstrap": "^5.3.0",
-    "expo": "^47.0.13",
+    "expo": "~47.0.14",
+    "expo-font": "~11.0.1",
+    "expo-google-fonts": "^0.0.0",
     "expo-image-picker": "~14.0.2",
     "expo-secure-store": "^12.0.0",
+    "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "^1.4.2",
     "formik": "^2.2.9",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-native": "0.70.5",
+    "react-native": "0.70.8",
     "react-native-element-dropdown": "^2.10.0",
     "react-native-flash-message": "^0.4.0",
     "react-native-mime-types": "^2.3.0",
@@ -44,12 +51,17 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.32.2"
+    "eslint-plugin-react": "^7.32.2",
+    "webpack": "^5.90.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not op_mini all"
   ],
-  "private": true
+  "private": true,
+  "name": "Events-Frontend",
+  "version": "1.0.0"
 }

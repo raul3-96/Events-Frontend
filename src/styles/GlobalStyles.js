@@ -1,6 +1,6 @@
-const brandPrimary = '#7ED7DB' 
+const brandPrimary = '#6AAFB1'
 const brandPrimaryDisabled = `${brandPrimary}a8`
-const brandPrimaryTap = '#31A8AE' 
+const brandPrimaryTap = '#5F9EA0' 
 const brandSecondary = '#feca1b' // Amarillo US. rgba(254,202,27,255)
 const brandSecondaryTap = '#EAB607' // amarillo US más oscuro
 const brandSuccess = '#95be05' // verde US

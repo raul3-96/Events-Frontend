@@ -4,6 +4,7 @@ import * as GlobalStyles from '../../styles/GlobalStyles'
 import Header from '../../components/Header'
 import { getCouple } from '../../api/MainEndpoints'
 import { showMessage } from 'react-native-flash-message'
+import TextRegular from '../../components/TextRegular'
 
 const windowWidth = Dimensions.get('window').width
 
@@ -96,16 +97,16 @@ export default function MainScreen ({ navigation, route }) {
         source={require('../../../assets/mainBackground.jpeg')}
         style={styles.imageBackground}>
         <View style={styles.overlay}>
-          <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter, {justifyContent: 'space-between', width:260}]}>
-            <Text style={styles.text}>{couple.wifeName}</Text>
-            <Text style={styles.text}>&</Text>
-            <Text style={styles.text}>{couple.husbandName}</Text>
+          <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter, {justifyContent: 'space-between', width:350}]}>
+            <TextRegular size={60} textStyle={styles.text}>{couple.wifeName}</TextRegular>
+            <TextRegular size={60} textStyle={styles.text}>&</TextRegular>
+            <TextRegular size={60} textStyle={styles.text}>{couple.husbandName}</TextRegular>
           </View>
-          <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter, {width:260}]}>
-            <Text style={styles.text}>{renderDate()}</Text>
+          <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter, {width:350}]}>
+            <TextRegular size={40} textStyle={styles.text}>{renderDate()}</TextRegular>
           </View>
           <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter, {width:300}]}>
-            <Text style={styles.text}>{couple.weddingVenue}</Text>
+            <TextRegular size={60} textStyle={styles.text}>{couple.weddingVenue}</TextRegular>
           </View>
           
           <View style={[styles.dflex, styles.directionRow, GlobalStyles.justifyCenter]}>
@@ -171,14 +172,14 @@ const styles = StyleSheet.create({
     },
     overlay: {
       height: 960,
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      backgroundColor: 'rgba(0, 0, 0, 0.3)',
       justifyContent: 'center',
       alignItems: 'center',
     },
     text: {
       color: 'white',
-      fontSize: 24,
-      fontWeight: 'bold',
+      fontSize: 24, 
+      fontFamily:'Ephesis_400Regular'
     },
     indexCounterWrapper:{
       position: 'relative',

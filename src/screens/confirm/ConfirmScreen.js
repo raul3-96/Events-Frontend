@@ -439,7 +439,7 @@ export default function ConfirmScreen ({ navigation, route }) {
             isVisible={true}
             onCancel={() => {setflagconfirmInvitation(null)}}
             onConfirm={confirmInvitationfunction}>
-              <TextRegular>Una vez aceptada la invitación no podrá añadir o eliminar invitados.</TextRegular>
+              <TextRegular size={16} textStyle={{textAlign:'center'}}>Una vez aceptada la invitación no podrá añadir o eliminar invitados.</TextRegular>
           </ConfirmModal>
     )
   }
@@ -451,7 +451,7 @@ export default function ConfirmScreen ({ navigation, route }) {
             isVisible={true}
             onCancel={() => {setflagdeniedInvitation(null)}}
             onConfirm={deniedInvitationfunction}>
-              <TextRegular>¿Está seguro que desea rechazar la invitación?</TextRegular>
+              <TextRegular size={16} textStyle={{textAlign:'center'}}>¿Está seguro que desea rechazar la invitación?</TextRegular>
           </ConfirmModal>
     )
   }
@@ -459,7 +459,7 @@ export default function ConfirmScreen ({ navigation, route }) {
   const renderHeader = (text) =>{
     return(
       <View style={styles.contentRow}>
-        <TextSemiBold size={18} textStyle={[{color:"white"}]}>{text}</TextSemiBold>
+        <TextSemiBold size={18} textStyle={[{fontStyle:'italic',color:"white"}]}>{text}</TextSemiBold>
       </View>
     )
   }
@@ -472,19 +472,19 @@ export default function ConfirmScreen ({ navigation, route }) {
     )
   }
   return (
-    <View style={{ flex: 1, position: "relative" }}>
+    <View style={{ flex: 1, position: "relative"}}>
       <View style={{ zIndex: 9999 }}>
         <Header navigation={navigation} activeTitle="Confirmar asistencia"></Header>
-      </View>
+      </View> 
       <View style={[GlobalStyles.itemCenter, { marginTop: 55, flex: 1 }]}>
         <View style={[GlobalStyles.containerCenter, { textAlign: "center", justifyContent:'flex-start' }]}>
           {invitation.status == "pending" ? (
             <>
-              <TextSemiBold size={24}>¡Confirma tu asistencia!</TextSemiBold>
-              <TextSemiBold size={18}>
+              <TextSemiBold size={24} textStyle={{fontStyle:'italic'}}>¡Confirma tu asistencia!</TextSemiBold>
+              <TextSemiBold size={18} textStyle={{marginTop:5}}>
                 Podéis utilizar este formulario para confirmar vuestra asistencia a
                 la boda. Si vais a confirmar para varios invitados por favor indicad
-                los nombres de todos los que asistirán
+                los nombres de todos los que asistirán.
               </TextSemiBold>
             </>
           ) : (
@@ -529,7 +529,7 @@ export default function ConfirmScreen ({ navigation, route }) {
                     },
                     styles.button,
                     styles.container,
-                    { color: "white",minWidth:240 },
+                    { color: "white",minWidth:240, border:2, borderStyle:'solid',borderColor:'goldenrod'  },
                   ]}
                 >
                   <TextRegular size={16} textStyle={[{ color: "white" }]}>
@@ -549,7 +549,7 @@ export default function ConfirmScreen ({ navigation, route }) {
                     styles.button,
                     styles.container,
                     { color: "white", marginLeft: windowWidth >=990 ? 50 : 0,
-                      minWidth:240 },
+                      minWidth:240, border:2, borderStyle:'solid' ,borderColor:'goldenrod' },
                   ]}
                 >
                   <TextRegular size={16} textStyle={[{ color: "white" }]}>
@@ -582,9 +582,9 @@ export default function ConfirmScreen ({ navigation, route }) {
               style={({ pressed }) => [
                 {
                   backgroundColor: pressed
-                    ? GlobalStyles.brandGreenTap
-                    : GlobalStyles.brandGreen,
-                  position: "absolute",
+                    ? GlobalStyles.brandPrimaryTap
+                    : GlobalStyles.brandPrimary,
+                  position: "fixed",
                   height: 40,
                   width: "100%",
                   bottom: 0,
@@ -592,6 +592,8 @@ export default function ConfirmScreen ({ navigation, route }) {
                   justifyContent: "center",
                   alignItems: "center",
                   flexDirection: "row",
+                  alignSelf: "flex-end",
+                  zIndex:999
                 },
               ]}
             >

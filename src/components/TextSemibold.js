@@ -12,6 +12,6 @@ export default function TextSemiBold (props) {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: 'Montserrat_600SemiBold'
+    fontFamily: 'Oregano_600SemiBold'
   }
 })

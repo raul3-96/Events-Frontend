@@ -14,7 +14,7 @@ export default function ConfirmModal (props) {
     onRequestClose={props.onCancel}>
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
-        <TextSemiBold textStyle={{ fontSize: 15 }}>{props.title}</TextSemiBold>
+        <TextSemiBold textStyle={{ fontSize: 20 }}>{props.title}</TextSemiBold>
         {props.children}
         <Pressable
           onPress={props.onCancel}

@@ -14,7 +14,7 @@ export default function TextError (props) {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: 'Montserrat_400Regular',
+    fontFamily: 'Oregano_400Regular',
     fontSize: 16,
     color: GlobalStyles.brandError,
     textAlign: 'center'

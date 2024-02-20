@@ -18,8 +18,8 @@ export default function ListScreen ({ navigation}) {
             </View>
             <View style={[ GlobalStyles.justifyCenter, GlobalStyles.alignCenter,{marginTop:55}]}>
                 <View style={[GlobalStyles.containerCenter, {textAlign:'center'}]}>
-                    <TextSemiBold size={24} >Nuestra Luna de Miel</TextSemiBold>
-                    <TextSemiBold size={20} textStyle={[{color:'#3E3E3E', paddingTop:20}]}>Nos hemos decidido por un viaje a XXXXX</TextSemiBold>
+                    <TextSemiBold size={24} textStyle={{fontStyle:'italic'}} >Nuestra Luna de Miel</TextSemiBold>
+                    <TextSemiBold size={20} textStyle={[{color:'#3E3E3E', paddingTop:20}]}>Nos hemos decidido por un viaje a Tailandia-Bali</TextSemiBold>
 
                    <View style={styles.displayImages}>
                         <Image style={[styles.image, {borderRadius:'50%', maginTop:15, marginBottom:15}]} source={viaje2} />
